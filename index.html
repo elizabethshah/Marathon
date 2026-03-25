@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marathon Training Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Beginner Marathon Training Tracker</p>
+        <h1>Log each workout and see your weekly progress.</h1>
+        <p class="hero-copy">
+          Track planned vs actual training, review weekly mileage, and keep notes in one place.
+          Your data stays on your computer with automatic local saving.
+        </p>
+      </div>
+      <div class="hero-stats">
+        <article class="stat-card">
+          <p class="stat-label">Saved Workouts</p>
+          <p class="stat-value" id="total-workouts">0</p>
+        </article>
+        <article class="stat-card">
+          <p class="stat-label">This Week's Miles</p>
+          <p class="stat-value" id="current-week-miles">0</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <h2>Add Workout</h2>
+        <p>Fill in your workout details. Everything saves locally in your browser.</p>
+      </div>
+
+      <div class="import-panel">
+        <div>
+          <h3 class="import-title">Import from Garmin</h3>
+          <p class="import-copy">Upload a `.tcx` file and convert it into a workout entry automatically.</p>
+        </div>
+        <div class="import-actions">
+          <label class="upload-button" for="tcx-file-input">Upload Garmin TCX file</label>
+          <input type="file" id="tcx-file-input" accept=".tcx,application/xml,text/xml" hidden>
+        </div>
+      </div>
+      <p id="import-message" class="import-message" aria-live="polite"></p>
+      <div id="import-preview" class="import-preview is-hidden">
+        <div class="import-preview-header">
+          <div>
+            <h3 class="import-title">Parsed TCX Preview</h3>
+            <p class="import-copy">Review this data before adding it to your workout log.</p>
+          </div>
+        </div>
+        <div id="import-preview-details" class="import-preview-details"></div>
+        <div class="form-actions">
+          <button type="button" class="primary-button" id="save-import-button">Save imported workout</button>
+          <button type="button" class="secondary-button" id="cancel-import-button">Cancel</button>
+        </div>
+      </div>
+
+      <form id="workout-form" class="workout-form">
+        <div class="form-grid">
+          <label>
+            Date
+            <input type="date" id="date" name="date" required>
+          </label>
+
+          <label>
+            Workout Type
+            <select id="workoutType" name="workoutType" required>
+              <option value="easy run">Easy Run</option>
+              <option value="long run">Long Run</option>
+              <option value="tempo">Tempo</option>
+              <option value="intervals">Intervals</option>
+              <option value="rest">Rest</option>
+              <option value="strength">Strength</option>
+              <option value="cross-training">Cross-Training</option>
+            </select>
+          </label>
+
+          <div id="running-fields" class="conditional-fields form-grid-span">
+            <div class="nested-form-grid">
+              <label>
+                Planned Miles
+                <input type="number" id="plannedMiles" name="plannedMiles" min="0" step="0.1" placeholder="0">
+              </label>
+
+              <label>
+                Actual Miles
+                <input type="number" id="actualMiles" name="actualMiles" min="0" step="0.1" placeholder="0">
+              </label>
+
+              <label>
+                Planned Pace
+                <input type="text" id="plannedPace" name="plannedPace" placeholder="e.g. 10:30/mi">
+              </label>
+
+              <label>
+                Actual Pace
+                <input type="text" id="actualPace" name="actualPace" placeholder="e.g. 10:45/mi">
+              </label>
+            </div>
+          </div>
+
+          <div id="training-fields" class="conditional-fields form-grid-span is-hidden">
+            <div class="nested-form-grid">
+              <label>
+                Exercises
+                <textarea id="exercises" name="exercises" rows="4" placeholder="e.g. squats, lunges, core work"></textarea>
+              </label>
+
+              <label>
+                Total Workout Time (minutes)
+                <input type="number" id="totalMinutes" name="totalMinutes" min="0" step="1" placeholder="0">
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <label>
+          Notes
+          <textarea id="notes" name="notes" rows="4" placeholder="How did the workout feel?"></textarea>
+        </label>
+
+        <div class="form-actions">
+          <button type="submit" class="primary-button">Save Workout</button>
+          <button type="reset" class="secondary-button" id="reset-button">Clear Form</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h2>Calendar View</h2>
+          <p>Review planned and actual miles for each day of the month.</p>
+        </div>
+        <div class="calendar-controls">
+          <button type="button" class="secondary-button" id="prev-month">Previous</button>
+          <p class="calendar-month-label" id="calendar-month-label"></p>
+          <button type="button" class="secondary-button" id="next-month">Next</button>
+        </div>
+      </div>
+      <div id="calendar-weekdays" class="calendar-weekdays"></div>
+      <div id="calendar-grid" class="calendar-grid"></div>
+    </section>
+
+    <div id="workout-detail-modal" class="modal-overlay is-hidden" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="workout-detail-title">
+        <div class="modal-header">
+          <div>
+            <h2 id="workout-detail-title">Workout Details</h2>
+            <p id="workout-detail-date" class="summary-label"></p>
+          </div>
+          <button type="button" class="secondary-button" id="close-detail-modal">Close</button>
+        </div>
+        <div id="workout-detail-content" class="workout-detail-content"></div>
+      </div>
+    </div>
+
+    <section class="panel">
+      <div class="section-heading">
+        <h2>Workout Log</h2>
+        <p>Your most recent entries appear first.</p>
+      </div>
+      <div class="log-controls">
+        <label class="log-control">
+          Sort
+          <select id="log-sort">
+            <option value="desc">Newest First</option>
+            <option value="asc">Oldest First</option>
+          </select>
+        </label>
+        <label class="log-control">
+          Activity
+          <select id="log-filter">
+            <option value="all">All Activities</option>
+            <option value="easy run">Easy Run</option>
+            <option value="long run">Long Run</option>
+            <option value="tempo">Tempo</option>
+            <option value="intervals">Intervals</option>
+            <option value="rest">Rest</option>
+            <option value="strength">Strength</option>
+            <option value="cross-training">Cross-Training</option>
+          </select>
+        </label>
+      </div>
+      <div id="workout-list" class="workout-list">
+        <p class="empty-state">No workouts saved yet.</p>
+      </div>
+    </section>
+  </main>
+
+  <template id="workout-item-template">
+    <article class="workout-item">
+      <div class="workout-item-header">
+        <div>
+          <p class="workout-date"></p>
+          <h3 class="workout-type"></h3>
+        </div>
+        <button type="button" class="delete-button">Delete</button>
+      </div>
+      <div class="workout-meta"></div>
+      <p class="workout-notes"></p>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>

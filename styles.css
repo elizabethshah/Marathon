@@ -1,0 +1,621 @@
+:root {
+  --bg: #f4f7f1;
+  --panel: #ffffff;
+  --panel-alt: #f9fbf7;
+  --border: #d8e2d2;
+  --text: #223127;
+  --muted: #5d6f61;
+  --accent: #2f7d4a;
+  --accent-soft: #e4f3e8;
+  --danger: #a33a3a;
+  --shadow: 0 18px 40px rgba(34, 49, 39, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(175, 215, 184, 0.45), transparent 28%),
+    linear-gradient(180deg, #f7fbf5 0%, var(--bg) 100%);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.app-shell {
+  width: min(1100px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0 3rem;
+}
+
+.hero {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.hero {
+  grid-template-columns: 2fr 1fr;
+  align-items: start;
+  margin-bottom: 1.5rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.5rem;
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 0.8rem;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.05;
+}
+
+.hero-copy,
+.section-heading p,
+.workout-notes,
+.empty-state,
+.meta-chip {
+  color: var(--muted);
+}
+
+.hero-stats {
+  display: grid;
+  gap: 1rem;
+}
+
+.calendar-controls,
+.calendar-weekdays,
+.calendar-grid {
+  display: grid;
+}
+
+.stat-card,
+.panel,
+.workout-item,
+.progress-card {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.stat-card {
+  padding: 1rem 1.2rem;
+  background: linear-gradient(180deg, var(--panel) 0%, var(--panel-alt) 100%);
+}
+
+.stat-label,
+.summary-label {
+  margin-bottom: 0.35rem;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.stat-value,
+.summary-value {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.panel {
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+.section-heading h2 {
+  margin-bottom: 0.25rem;
+}
+
+.workout-form,
+.workout-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.import-panel {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--panel-alt);
+}
+
+.import-title {
+  margin-bottom: 0.25rem;
+}
+
+.import-copy,
+.import-message {
+  margin: 0;
+  color: var(--muted);
+}
+
+.import-actions {
+  display: flex;
+  align-items: center;
+}
+
+.upload-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.1rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.import-message.is-success {
+  color: var(--accent);
+}
+
+.import-message.is-error {
+  color: var(--danger);
+}
+
+.import-preview {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: #fcfefb;
+}
+
+.import-preview-header,
+.import-preview-details {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.import-preview-details {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.preview-chip {
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: white;
+}
+
+.preview-chip strong {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.form-grid-span {
+  grid-column: 1 / -1;
+}
+
+.nested-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.conditional-fields {
+  transition: opacity 160ms ease;
+}
+
+.is-hidden {
+  display: none;
+}
+
+label {
+  display: grid;
+  gap: 0.45rem;
+  font-weight: 600;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fcfefb;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid rgba(47, 125, 74, 0.18);
+  border-color: var(--accent);
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.primary-button,
+.secondary-button,
+.delete-button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.8rem 1.1rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.primary-button {
+  background: var(--accent);
+  color: white;
+}
+
+.secondary-button {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.delete-button {
+  background: #fbe8e8;
+  color: var(--danger);
+}
+
+.calendar-controls {
+  grid-auto-flow: column;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.calendar-month-label {
+  min-width: 140px;
+  margin: 0;
+  text-align: center;
+  font-weight: 700;
+}
+
+.calendar-weekdays,
+.calendar-grid {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.calendar-weekdays {
+  margin-bottom: 0.75rem;
+}
+
+.calendar-weekday,
+.calendar-day {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--panel-alt);
+}
+
+.calendar-weekday {
+  padding: 0.7rem;
+  text-align: center;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.calendar-day {
+  min-height: 130px;
+  padding: 0.8rem;
+  background: linear-gradient(180deg, var(--panel) 0%, var(--panel-alt) 100%);
+}
+
+.calendar-day-button {
+  width: 100%;
+  border: 1px solid var(--border);
+  text-align: left;
+  font: inherit;
+  color: inherit;
+}
+
+.calendar-day.has-workout {
+  cursor: pointer;
+}
+
+.calendar-day.is-outside-month {
+  opacity: 0.45;
+}
+
+.calendar-day.is-today {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px rgba(47, 125, 74, 0.18);
+}
+
+.calendar-day-number {
+  margin: 0 0 0.65rem;
+  font-weight: 700;
+}
+
+.calendar-day-miles {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.calendar-mile-chip {
+  padding: 0.45rem 0.55rem;
+  border-radius: 12px;
+  background: white;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(27, 37, 31, 0.45);
+  z-index: 1000;
+}
+
+.modal-overlay.is-hidden {
+  display: none;
+}
+
+.modal-card {
+  width: min(720px, 100%);
+  max-height: min(85vh, 900px);
+  overflow: auto;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.modal-header,
+.detail-item-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: start;
+}
+
+.workout-detail-content {
+  display: grid;
+  gap: 1rem;
+}
+
+.detail-item {
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--panel-alt);
+}
+
+.detail-item-title {
+  margin-bottom: 0.35rem;
+  text-transform: capitalize;
+}
+
+.detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.8rem 0;
+}
+
+.detail-notes {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.log-controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.log-control {
+  min-width: 180px;
+}
+
+.workout-item {
+  padding: 1rem;
+}
+
+.workout-item-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: start;
+}
+
+.workout-date {
+  margin-bottom: 0.35rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.workout-type {
+  margin-bottom: 0;
+  text-transform: capitalize;
+}
+
+.workout-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 0.8rem;
+}
+
+.meta-chip {
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  font-size: 0.92rem;
+}
+
+.progress-card {
+  padding: 1rem;
+  background: linear-gradient(180deg, var(--panel) 0%, var(--panel-alt) 100%);
+}
+
+.progress-card.is-expandable {
+  cursor: pointer;
+}
+
+.progress-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.progress-toggle {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.progress-bar-track {
+  height: 12px;
+  background: #e7eee4;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #5ca877 0%, var(--accent) 100%);
+  border-radius: 999px;
+}
+
+.progress-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.progress-workouts {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+.progress-workout-item {
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: white;
+}
+
+.progress-workout-title {
+  margin-bottom: 0.3rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.progress-workout-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.empty-state {
+  margin: 0;
+  padding: 1rem;
+  border: 1px dashed var(--border);
+  border-radius: 16px;
+  background: var(--panel-alt);
+}
+
+@media (max-width: 800px) {
+  .hero,
+  .form-grid,
+  .nested-form-grid,
+  .import-preview-details {
+    grid-template-columns: 1fr;
+  }
+
+  .section-heading,
+  .workout-item-header,
+  .import-panel,
+  .modal-header,
+  .detail-item-header {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .calendar-controls {
+    grid-auto-flow: row;
+    justify-items: start;
+  }
+
+  .calendar-month-label {
+    min-width: 0;
+    text-align: left;
+  }
+
+  .calendar-weekdays,
+  .calendar-grid {
+    gap: 0.5rem;
+  }
+
+  .log-controls {
+    flex-direction: column;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+}
